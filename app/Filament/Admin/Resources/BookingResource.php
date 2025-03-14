@@ -80,6 +80,11 @@ class BookingResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('selesaikanSesi')
+                    ->label('Selesaikan Sesi')
+                    ->requiresConfirmation()
+                    ->action(fn(Booking $booking) => $booking->update(['is_akif' => false]))
+                    ->visible(fn(Booking $booking) => $booking->is_akif),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
