@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->unsignedBigInteger('harga_per_sesi');
+            $table->unsignedInteger('slot');
             $table->text('deskripsi')->nullable();
             $table->timestamps();
         });
