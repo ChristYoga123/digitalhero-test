@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Admin\Resources\BookingResource;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
@@ -99,6 +100,7 @@ class AdminPanelProvider extends PanelProvider
                         ->items([
                             ...Dashboard::getNavigationItems(),
                             ...ServiceResource::getNavigationItems(),
+                            ...BookingResource::getNavigationItems(),
                             // ...PageResource::getNavigationItems(),
                             // ...CategoryResource::getNavigationItems(),
                             // ...HomePageSettings::getNavigationItems(),
