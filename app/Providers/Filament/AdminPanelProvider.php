@@ -73,8 +73,8 @@ class AdminPanelProvider extends PanelProvider
                         value: true,
                         directory: 'avatars', // image will be stored in 'storage/app/public/avatars
                         rules: 'mimes:jpeg,png,jpg|max:1024' //only accept jpeg and png files with a maximum size of 1MB
-                    )
-                    ->canAccess(fn() => auth()->user()->can('page_EditProfilePage')),
+                    ),
+                    // ->canAccess(fn() => auth()->user()->can('page_EditProfilePage')),
                 FilamentEnvEditorPlugin::make()
                     ->hideKeys('APP_KEY', 'BCRYPT_ROUNDS')
                     ->authorize(
