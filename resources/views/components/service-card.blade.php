@@ -1,4 +1,4 @@
-a@props(['service'])
+@props(['service'])
 <div class="game-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
     <div class="inner-box">
         <div class="image-box">

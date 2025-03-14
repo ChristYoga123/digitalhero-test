@@ -26,17 +26,17 @@
 
     <div class="page-wrapper">
         <!-- Preloader -->
-        @include('components.preloader')
+        @Preloader()
 
         <!-- Main Header -->
-        @include('components.header')
+        @Header()
         <!-- End Main Header -->
 
 
         @yield('content')
 
         <!-- Main Footer -->
-        @include('components.footer')
+        @Footer()
 
     </div>
     <!--End pagewrapper-->

@@ -35,7 +35,9 @@
 
             <div class="row clearfix">
                 <!--Game Block-->
-                {{-- @include('components.service-card') --}}
+                @foreach ($services as $service)
+                    @ServiceCard(['service' => $service])
+                @endforeach
             </div>
         </div>
 

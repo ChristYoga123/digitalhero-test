@@ -11,6 +11,8 @@ class Service extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
+    protected $with = 'media';
+
     public function setNamaAttribute($value)
     {
         $this->attributes['nama'] = $value;
