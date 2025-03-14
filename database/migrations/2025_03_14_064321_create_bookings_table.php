@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('jumlah_sesi');
             $table->unsignedBigInteger('total_harga');
             $table->enum('status', ['Sukses', 'Menunggu', 'Batal']);
+            $table->boolean('is_aktif')->default(false);
             $table->timestamps();
         });
     }

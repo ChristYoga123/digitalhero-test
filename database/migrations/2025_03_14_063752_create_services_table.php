@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('nama')->unique;
+            $table->string('slug')->unique;
             $table->unsignedBigInteger('harga_per_sesi');
             $table->unsignedInteger('slot');
             $table->text('deskripsi')->nullable();
