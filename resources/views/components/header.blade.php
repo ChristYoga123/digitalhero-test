@@ -46,10 +46,17 @@
                                     <li><a href="{{ url($menu['url']) }}">{{ $menu['title'] }}</a></li>
                                 @endforeach
                                 @auth
-                                    <li>
-                                        <a href="{{ route('filament.user.pages.dashboard') }}"
-                                            class="btn style-one">Dashboard</a>
-                                    </li>
+                                    @if (Auth::user()->hasRole('user'))
+                                        <li>
+                                            <a href="{{ route('filament.user.pages.dashboard') }}"
+                                                class="btn style-one">Dashboard</a>
+                                        </li>
+                                    @elseif(Auth::user()->hasRole('super_admin'))
+                                        <li>
+                                            <a href="{{ route('filament.admin.pages.dashboard') }}"
+                                                class="btn style-one">Dashboard</a>
+                                        </li>
+                                    @endif
                                 @endauth
                                 @guest
                                     <li>
