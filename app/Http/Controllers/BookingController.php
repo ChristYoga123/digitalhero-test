@@ -48,7 +48,7 @@ class BookingController extends Controller
 
         // cek apakah user sudah pernah booking service ini
         if($service->isBookedByCurrentUser($request->tanggal_booking) === true) {
-            return ResponseFormatterController::error(message: 'Anda sudah pernah melakukan booking untuk rental ini');
+            return ResponseFormatterController::error(message: 'Anda sudah pernah melakukan booking untuk rental ini. Harap selesaikan sesi yang sudah dibooking terlebih dahulu');
         }
 
         // cek apakah slot masih tersedia
