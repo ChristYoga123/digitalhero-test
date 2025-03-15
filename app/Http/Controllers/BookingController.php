@@ -30,6 +30,11 @@ class BookingController extends Controller
             ->delete();
     }
 
+    private function validateUserRoleWhoCanBook()
+    {
+        return Auth::user()->hasRole('user');
+    }
+
     public function beli(Request $request, Service $service)
     {
         $request->validate([
@@ -45,6 +50,11 @@ class BookingController extends Controller
 
         // hapus booking yang belum dibayar
         $this->deleteUnpaidBooking($service);
+
+        // cek apakah user yang membeli adalah user bukan admin
+        if(!$this->validateUserRoleWhoCanBook()) {
+            return ResponseFormatterController::error(message: 'Anda tidak memiliki akses untuk melakukan booking');
+        }
 
         // cek apakah user sudah pernah booking service ini
         if($service->isBookedByCurrentUser($request->tanggal_booking) === true) {
