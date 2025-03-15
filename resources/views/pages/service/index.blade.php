@@ -3,7 +3,7 @@
 @section('content')
     @Title([
         'title' => 'Service Kami',
-        'breadcrumbs' => [['title' => 'Games']],
+        'breadcrumbs' => [['title' => 'Service']],
     ])
 
     <section class="games-section games-page-section">

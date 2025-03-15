@@ -45,9 +45,17 @@
                                 @foreach ($menus as $menu)
                                     <li><a href="{{ url($menu['url']) }}">{{ $menu['title'] }}</a></li>
                                 @endforeach
-                                <li>
-                                    <a href="" class="btn style-one">Login</a>
-                                </li>
+                                @auth
+                                    <li>
+                                        <a href="{{ route('filament.user.pages.dashboard') }}"
+                                            class="btn style-one">Dashboard</a>
+                                    </li>
+                                @endauth
+                                @guest
+                                    <li>
+                                        <a href="{{ route('filament.user.auth.login') }}" class="btn style-one">Login</a>
+                                    </li>
+                                @endguest
                             </ul>
                         </div>
                     </nav>
@@ -71,7 +79,7 @@
         <div class="auto-container clearfix">
             <!--Logo-->
             <div class="logo pull-left">
-                <a href="index.html" title=""><img src="{{ asset('assets/images/sticky-logo.png') }}"
+                <a href="{{ route('index') }}" title=""><img src="{{ asset('assets/images/sticky-logo.png') }}"
                         alt="" title=""></a>
             </div>
             <!--Right Col-->

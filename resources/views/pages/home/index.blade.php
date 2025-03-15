@@ -6,13 +6,13 @@
         <div class="banner-carousel owl-theme owl-carousel">
             <!-- Slide Item -->
             <div class="slide-item">
-                <div class="image-layer" style="background-image:url(assets/images/main-slider/1.jpg)"></div>
+                <div class="image-layer" style="background-image:url(assets/images/hero.jpg)"></div>
 
                 <div class="auto-container">
                     <div class="content-box">
                         <div class="content">
                             <h2>Selamat Datang di Digital Gaming Rental</h2>
-                            <div class="link-box"><a href="games.html" class="theme-btn btn-style-one"><span
+                            <div class="link-box"><a href="{{ route('service.index') }}" class="theme-btn btn-style-one"><span
                                         class="btn-title">Our Service</span></a></div>
                         </div>
                     </div>
