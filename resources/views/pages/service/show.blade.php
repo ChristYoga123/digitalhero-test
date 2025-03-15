@@ -217,6 +217,7 @@
             const calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 locale: 'id',
+                timeZone: 'Asia/Jakarta', // Set Jakarta timezone explicitly
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
@@ -253,9 +254,18 @@
                     // Enable pay button if form is valid
                     validateBookingForm();
                 },
-                validRange: function(nowDate) {
+                validRange: function() {
+                    // Create today's date in Jakarta time zone
+                    const today = new Date();
+                    const jakartaOffset = 7 * 60; // Jakarta is UTC+7
+                    const localOffset = today.getTimezoneOffset();
+                    const jakartaTime = new Date(today.getTime() + (jakartaOffset + localOffset) * 60000);
+
+                    // Format as YYYY-MM-DD for comparison
+                    const jakartaDate = jakartaTime.toISOString().split('T')[0];
+
                     return {
-                        start: nowDate
+                        start: jakartaDate
                     };
                 }
             });
@@ -263,7 +273,7 @@
             calendar.render();
         }
 
-        // Format date to Indonesian format
+        // The rest of your functions remain unchanged
         function formatDate(date) {
             const options = {
                 weekday: 'long',
@@ -274,7 +284,6 @@
             return date.toLocaleDateString('id-ID', options);
         }
 
-        // Calculate total price
         function calculateTotal() {
             const basePrice = {{ $service->harga_per_sesi }};
             const sesi = parseInt(document.getElementById('jumlah_sesi').value) || 1;
@@ -295,7 +304,6 @@
             document.getElementById('total_harga_value').value = total;
         }
 
-        // Validate booking form
         function validateBookingForm() {
             const selectedDate = document.getElementById('selected_date').value;
             const sesi = parseInt(document.getElementById('jumlah_sesi').value) || 0;
