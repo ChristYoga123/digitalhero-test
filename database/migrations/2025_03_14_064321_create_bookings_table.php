@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('tanggal_booking');
             $table->unsignedInteger('jumlah_sesi');
             $table->unsignedBigInteger('total_harga');
-            $table->enum('status', ['Sukses', 'Menunggu', 'Batal']);
+            $table->enum('status', ['Sukses', 'Menunggu', 'Batal'])->default('Menunggu');
             $table->boolean('is_aktif')->default(false);
             $table->timestamps();
         });

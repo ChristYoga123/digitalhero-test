@@ -9,7 +9,7 @@
         <div class="header-top">
             <div class="inner clearfix">
                 <div class="top-left">
-                    <div class="top-text">Welcome to game developement studio</div>
+                    <div class="top-text">Welcome to Digital Hero Gaming Rental</div>
                 </div>
 
                 <div class="top-right">
@@ -42,45 +42,12 @@
                     <nav class="main-menu navbar-expand-md navbar-light">
                         <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                             <ul class="navigation clearfix">
-                                <li class="current dropdown"><a href="index.html">Home</a>
-                                    <ul>
-                                        <li><a href="index.html">Home Page 01</a></li>
-                                        <li><a href="index-2.html">Home Page 02</a></li>
-                                        <li><a href="index-3.html">Home Page Light</a></li>
-                                        <li class="dropdown"><a href="index.html">Header Styles</a>
-                                            <ul>
-                                                <li><a href="index.html">Header Type 01</a></li>
-                                                <li><a href="index-2.html">Header Type 02</a></li>
-                                                <li><a href="index-3.html">Header Type 03</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                @foreach ($menus as $menu)
+                                    <li><a href="{{ url($menu['url']) }}">{{ $menu['title'] }}</a></li>
+                                @endforeach
+                                <li>
+                                    <a href="" class="btn style-one">Login</a>
                                 </li>
-                                <li class="dropdown"><a href="about.html">About</a>
-                                    <ul>
-                                        <li><a href="about.html">About Us</a></li>
-                                        <li><a href="team.html">Our Team</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown"><a href="games.html">Games</a>
-                                    <ul>
-                                        <li><a href="games.html">All Games</a></li>
-                                        <li><a href="game-details.html">Dragon Fight</a></li>
-                                        <li><a href="game-details.html">Street Fighter</a></li>
-                                        <li><a href="game-details.html">Justice League</a></li>
-                                        <li><a href="game-details.html">The Mob Rules</a></li>
-                                        <li><a href="game-details.html">Mafia Mystrey</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="gallery.html">Gallery</a></li>
-                                <li class="dropdown"><a href="blog.html">Blog</a>
-                                    <ul>
-                                        <li><a href="blog.html">Blog Sidebar</a></li>
-                                        <li><a href="blog-grid.html">Blog Grid View</a></li>
-                                        <li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact.html">Contact</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -123,8 +90,8 @@
         <div class="close-btn"><span class="icon flaticon-cancel"></span></div>
 
         <nav class="menu-box">
-            <div class="nav-logo"><a href="index.html"><img src="{{ asset('assets/images/logo.png') }}" alt=""
-                        title=""></a></div>
+            <div class="nav-logo"><a href="{{ route('index') }}"><img src="{{ asset('assets/images/logo.png') }}"
+                        alt="" title=""></a></div>
             <div class="menu-outer">
                 <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
             </div>

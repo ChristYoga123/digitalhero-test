@@ -306,14 +306,52 @@
         }
 
         function beli() {
-            if (validateBookingForm() === false) {
-                toastr.error('Mohon isi tanggal dan jumlah sesi terlebih dahulu');
-                return;
+            @guest
+            window.location.href = '{{ route('filament.user.auth.login') }}';
+            return;
+        @endguest
+        if (validateBookingForm() === false) {
+            toastr.error('Mohon isi tanggal dan jumlah sesi terlebih dahulu');
+            return;
+        }
+
+        $.ajax({
+            url: `{{ route('service.booking', $service->slug) }}`,
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                tanggal_booking: document.getElementById('selected_date').value,
+                jumlah_sesi: document.getElementById('jumlah_sesi').value,
+                total_harga: document.getElementById('total_harga_value').value
+            },
+            beforeSend: function() {
+                $('#bayarBtn').prop('disabled', true).html(
+                    '<i class="fas fa-spinner fa-spin mr-2"></i> Loading...');
+            },
+            success: function(response) {
+                $('#bayarBtn').prop('disabled', false).html(
+                    '<i class="fas fa-credit-card mr-2"></i> Bayar Sekarang');
+                snap.pay(response.data.snap_token, {
+                    onSuccess: function(result) {
+                        // toastr.success('Pembayaran berhasil!');
+                        window.location.href = '{{ route('pembayaran.sukses') }}';
+                    },
+                    onPending: function(result) {
+                        // toastr.info('Pembayaran sedang diproses');
+                        window.location.href = '{{ route('pembayaran.gagal') }}';
+                    },
+                    onError: function(result) {
+                        // toastr.error('Pembayaran gagal!');
+                        window.location.href = '{{ route('pembayaran.gagal') }}';
+                    }
+                });
+            },
+            error: function(xhr) {
+                $('#bayarBtn').prop('disabled', false).html(
+                    '<i class="fas fa-credit-card mr-2"></i> Bayar Sekarang');
+                toastr.error(xhr.responseJSON.message);
             }
-
-            // $.ajax({
-
-            // })
+        })
         }
 
         // Setup event listeners

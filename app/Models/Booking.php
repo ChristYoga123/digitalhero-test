@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
-
     protected $casts = [
         'tanggal_booking' => 'date',
         'status' => StatusEnum::class,

@@ -2,20 +2,22 @@
 
 namespace App\Filament\Admin\Resources;
 
-use App\Filament\Admin\Resources\BookingResource\Pages;
-use App\Filament\Admin\Resources\BookingResource\RelationManagers;
-use App\Models\Booking;
 use Exception;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Notifications\Notification;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Booking;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\Resource;
+use App\Enums\Booking\StatusEnum;
 use Illuminate\Support\Facades\DB;
+use Filament\Support\Enums\FontWeight;
+use Illuminate\Database\Eloquent\Model;
+use Filament\Notifications\Notification;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Admin\Resources\BookingResource\Pages;
+use App\Filament\Admin\Resources\BookingResource\RelationManagers;
 
 class BookingResource extends Resource
 {
@@ -64,12 +66,26 @@ class BookingResource extends Resource
                     )
                     ->sortable(),
                 Tables\Columns\TextColumn::make('jumlah_sesi')
-                    ->numeric()
+                    ->getStateUsing(fn(Booking $booking) => $booking->jumlah_sesi . ' Sesi')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total_harga')
                     ->numeric()
+                    ->money('IDR')
+                    ->weight(FontWeight::Bold)
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status Pembayaran')
+                    ->badge()
+                    ->color(fn(Booking $booking) => match ($booking->status) {
+                        StatusEnum::SUKSES => 'success',
+                        StatusEnum::MENUNGGU => 'warning',
+                        StatusEnum::BATAL => 'danger',
+                    }),
+                Tables\Columns\TextColumn::make('is_aktif')
+                    ->label('Status Booking')
+                    ->badge()
+                    ->color(fn(Booking $booking) => $booking->is_aktif ? 'success' : 'danger')
+                    ->getStateUsing(fn(Booking $booking) => $booking->is_aktif ? 'Aktif' : 'Tidak Aktif'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -84,7 +100,10 @@ class BookingResource extends Resource
             ])
             ->actions([
                 Tables\Actions\Action::make('selesaikanSesi')
+                    ->button()
+                    ->color('success')
                     ->label('Selesaikan Sesi')
+                    ->visible(fn(Booking $booking) => $booking->status === StatusEnum::SUKSES && $booking->is_aktif)
                     ->requiresConfirmation()
                     ->action(function(Booking $booking)
                     {
@@ -92,7 +111,7 @@ class BookingResource extends Resource
                         try
                         {
                             $booking->update([
-                                'is_akif' => false,
+                                'is_aktif' => false,
                             ]);
     
                             $booking->service->update([
@@ -112,13 +131,12 @@ class BookingResource extends Resource
                             Notification::make()
                                 ->title('Gagal')
                                 ->body('Sesi gagal diselesaikan')
-                                ->error()
+                                ->danger()
                                 ->send();
                         }
                         
 
-                    })
-                    ->visible(fn(Booking $booking) => $booking->is_akif),
+                    }),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
