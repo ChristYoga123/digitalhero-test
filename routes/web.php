@@ -11,4 +11,5 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::prefix('service')->name('service')->group(function()
 {
     Route::get('/', [ServiceController::class, 'index'])->name('.index');
+    Route::get('/{service:slug}', [ServiceController::class, 'show'])->name('.show');
 });

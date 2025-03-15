@@ -26,9 +26,9 @@
             <div class="inner-container clearfix">
                 <!--Logo-->
                 <div class="logo-box">
-                    <div class="logo"><a href="index.html"
+                    <div class="logo"><a href="{{ route('index') }}"
                             title="Sintix - Digital Video Gaming and Consol HTML Template"><img
-                                src="assets/images/logo.png"
+                                src="{{ asset('assets/images/logo.png') }}"
                                 alt="Sintix - Digital Video Gaming and Consol HTML Template"
                                 title="Sintix - Digital Video Gaming and Consol HTML Template"></a></div>
                 </div>
@@ -104,8 +104,8 @@
         <div class="auto-container clearfix">
             <!--Logo-->
             <div class="logo pull-left">
-                <a href="index.html" title=""><img src="assets/images/sticky-logo.png" alt=""
-                        title=""></a>
+                <a href="index.html" title=""><img src="{{ asset('assets/images/sticky-logo.png') }}"
+                        alt="" title=""></a>
             </div>
             <!--Right Col-->
             <div class="pull-right">
@@ -123,7 +123,7 @@
         <div class="close-btn"><span class="icon flaticon-cancel"></span></div>
 
         <nav class="menu-box">
-            <div class="nav-logo"><a href="index.html"><img src="assets/images/logo.png" alt=""
+            <div class="nav-logo"><a href="index.html"><img src="{{ asset('assets/images/logo.png') }}" alt=""
                         title=""></a></div>
             <div class="menu-outer">
                 <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->

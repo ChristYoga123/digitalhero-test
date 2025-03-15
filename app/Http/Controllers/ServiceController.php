@@ -14,4 +14,12 @@ class ServiceController extends Controller
             'services' => Service::latest()->paginate(6)
         ]);
     }
+
+    public function show(Service $service)
+    {
+        return view('pages.service.show', [
+            'title' => ucwords($service->nama),
+            'service' => $service
+        ]);
+    }
 }

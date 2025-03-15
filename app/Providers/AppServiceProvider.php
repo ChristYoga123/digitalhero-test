@@ -30,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::include('components.header', 'Header');
         Blade::include('components.preloader', 'Preloader');
         Blade::include('components.service-card', 'ServiceCard');
+        Blade::include('components.title', 'Title');
 
         // Core Configurations
         Paginator::useBootstrapFive();
