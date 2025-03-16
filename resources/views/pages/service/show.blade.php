@@ -90,11 +90,6 @@
             background-color: #f8f9fa;
             cursor: not-allowed;
         }
-
-        /* Make calendar cells more tappable on mobile */
-        .fc .fc-daygrid-day-frame {
-            min-height: 45px;
-        }
     </style>
 @endpush
 @section('content')
@@ -210,7 +205,6 @@
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@5.10.1/main.min.js"></script>
     <script
         src="{{ env('APP_ENV') === 'local' ? 'https://app.sandbox.midtrans.com/snap/snap.js' : 'https://app.midtrans.com/snap/snap.js' }}"
         data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
@@ -229,19 +223,11 @@
                     center: 'title',
                     right: 'dayGridMonth'
                 },
+                longPressDelay: 50,
                 selectable: true,
                 selectConstraint: {
                     start: new Date().toISOString().split('T')[0], // Today and future
                 },
-                // Add these properties for better mobile support
-                selectLongPressDelay: 100, // Make long press more responsive on mobile
-                eventLongPressDelay: 100,
-                longPressDelay: 100,
-                selectMinDistance: 5, // Prevent accidental touches from being interpreted as drags
-                // Enable interaction on touch devices
-                themeSystem: 'bootstrap',
-                height: 'auto',
-                contentHeight: 'auto',
                 select: function(info) {
                     // Remove previous selection styling
                     document.querySelectorAll('.fc-day-selected').forEach(el => {
